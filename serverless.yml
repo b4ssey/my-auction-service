@@ -16,6 +16,9 @@ service: my-auction-service
 #app: your-app-name
 #org: your-org-name
 
+plugins:
+  - serverless-bundle
+
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
 frameworkVersion: "3"
@@ -23,6 +26,8 @@ frameworkVersion: "3"
 provider:
   name: aws
   runtime: nodejs12.x
+  memorySize: 256
+  stage: ${opt:stage, 'dev'}
 
 # you can overwrite defaults here
 #  stage: dev
@@ -60,7 +65,11 @@ provider:
 
 functions:
   hello:
-    handler: src/handlers/handler.hello
+    handler: src/handlers/hello.handler
+    events:
+      - http:
+          method: GET
+          path: /hello
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

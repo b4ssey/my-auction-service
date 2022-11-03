@@ -18,5 +18,8 @@
   "homepage": "https://github.com/b4ssey/my-auction-service#readme",
   "devDependencies": {
     "serverless-bundle": "^5.5.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1246.0"
   }
 }
