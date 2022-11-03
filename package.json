@@ -2,7 +2,6 @@
   "name": "my-auction-service",
   "version": "1.0.0",
   "description": "Ekeminis experiment for Serverless Framework projects",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,6 +19,7 @@
     "serverless-bundle": "^5.5.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.1246.0"
+    "aws-sdk": "^2.1246.0",
+    "uuid": "^9.0.0"
   }
 }
