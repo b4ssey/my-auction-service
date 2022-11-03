@@ -32,25 +32,11 @@ provider:
   iam:
     role:
       statements:
-        - Effect: Allow
-          Action:
-            - dynamodb:PutItem
-          Resource:
-            - !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/AuctionsTable
+        - ${file(iam/AuctionsTableIAM.yml):AuctionsTableIAM}
 
 resources:
   Resources:
-    AuctionsTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: AuctionsTable
-        BillingMode: PAY_PER_REQUEST
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
+    AuctionsTable: ${file(resources/AuctionsTable.yml):AuctionsTable}
 
 # you can overwrite defaults here
 #  stage: dev
