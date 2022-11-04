@@ -81,6 +81,12 @@ functions:
       - http:
           method: POST
           path: /auction
+  getAuction:
+    handler: src/handlers/getAuctions.handler
+    events:
+      - http:
+          method: GET
+          path: /auctions
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
