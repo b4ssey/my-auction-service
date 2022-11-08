@@ -26,6 +26,7 @@
     "@middy/validator": "^3.6.2",
     "aws-sdk": "^2.1246.0",
     "http-errors": "^2.0.0",
+    "serverless": "^3.24.1",
     "uuid": "^9.0.0"
   }
 }
