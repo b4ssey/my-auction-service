@@ -19,6 +19,20 @@ export async function closeAuction(auction) {
   await dynamodb.update(params).promise();
   const { title, seller, highestBid } = auction;
   const { amount, bidder } = highestBid;
+
+  if (amount === 0) {
+    await sqs
+      .sendMessage({
+        QueueUrl: process.env.MAIL_QUEUE_URL,
+        MessageBody: JSON.stringify({
+          subject: "No bid for your item this time around",
+          recipient: seller,
+          body: `Oh no! Your item "${title}"didnt get any bids`,
+        }),
+      })
+      .promise();
+  }
+
   const notifySeller = sqs
     .sendMessage({
       QueueUrl: process.env.MAIL_QUEUE_URL,
