@@ -14,14 +14,26 @@ async function placeBid(event, context) {
 
   const auction = await getAuctionById(id);
 
+  // Bid identity validation
+  if (email === auction.seller) {
+    throw new createError.Forbidden(`You cannot bid on your own auctions.`);
+  }
+
+  // Avoid double bidding
+  if (email === auction.highestBid.bidder) {
+    throw new createError.Forbidden(`You are alreay the highest bidder`);
+  }
+
+  // Auction status validation
+  if (auction.status !== "OPEN") {
+    throw new createError.Forbidden(`You cannot bid on closed auctions`);
+  }
+
+  // Bid amount validation
   if (amount <= auction.highestBid.amount) {
     throw new createError.Forbidden(
       `Your bid must be higher than ${auction.highestBid.amount}!`
     );
-  }
-
-  if (auction.status !== "OPEN") {
-    throw new createError.Forbidden(`You cannot bid on closed auctions`);
   }
 
   const params = {
